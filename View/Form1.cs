@@ -175,21 +175,24 @@ namespace View
                     if (!ourWorld.snakeDict.ContainsKey(s.getID()))
                     {
                         Label label = new Label();
-                        label.Name = "label" + labelNumber;
-                        label.Location = new System.Drawing.Point(ourWorld.width * ourWorld.pixelsPerCell + 20, 100 + labelNumber * 22);
-                        label.Size = new System.Drawing.Size(180, 20);
-                        this.Invoke(new MethodInvoker(() => label.Parent = this));
-
-                        //color 
-                        label.Text = s.getName() + ": " + s.snakeScore(s);
-                        s.myLabelNumber = labelNumber;
-                        labelNumber++;
-                        labelDict[label.Name] = label;
-                        this.Invoke(new MethodInvoker(() => this.Controls.Add(label)));
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            label.Name = "label" + labelNumber;
+                            label.Location = new System.Drawing.Point(ourWorld.width * ourWorld.pixelsPerCell + 20, 100 + labelNumber * 22);
+                            label.Size = new System.Drawing.Size(180, 20);
+                            label.Parent = this;
+                            label.ForeColor = s.getColor(); 
+                            label.Text = s.getName() + ": " + s.snakeScore(s);
+                            s.myLabelNumber = labelNumber;
+                            labelNumber++;
+                            labelDict[label.Name] = label;
+                            this.Controls.Add(label);
+                        });
                     }
                     else
                     {
-                        labelDict["label" + s.myLabelNumber].Text = s.getName() + ": " + s.snakeScore(s);
+                        this.Invoke(new MethodInvoker(() => labelDict["label" + s.myLabelNumber].ForeColor = s.getColor()));
+                        this.Invoke(new MethodInvoker(() => labelDict["label" + s.myLabelNumber].Text = s.getName() + ": " + s.snakeScore(s)));
                     }
 
                     lock (ourWorld.snakeDict)
@@ -198,6 +201,7 @@ namespace View
                         if (s.SnakeIsDead(s))
                         {
                             ourWorld.snakeDict.Remove(s.getID());
+                            this.Invoke(new MethodInvoker(() => labelDict["label" + s.myLabelNumber].Text = s.getName() + ": 0"));
                         }                       
                     }
 

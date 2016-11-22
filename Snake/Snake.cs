@@ -114,6 +114,10 @@ namespace SnakeGame
         {
             return name;
         }
+        public Color getColor()
+        {
+            return snakeColor;
+        }
         public Snake(string id)
         {
             Int32.TryParse(id, out ID);
