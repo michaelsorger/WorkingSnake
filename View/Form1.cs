@@ -46,6 +46,8 @@ namespace View
         private bool EnterNameIsClicked = false;
         private bool AbleToSendDirections = false;
         private NetworkController.SocketState stateToDealWithMyIssues = new NetworkController.SocketState();
+        private Dictionary<string, int> namesAndScores = new Dictionary<string, int>();
+        private HashSet<string> namesAlreadyWritten = new HashSet<string>();
 
         private void FirstContact(NetworkController.SocketState state)
         {
@@ -166,7 +168,7 @@ namespace View
                 if (snakeProp != null)
                 {
                     Snake s = JsonConvert.DeserializeObject<Snake>(p);
-
+                    namesAndScores[s.getName()] = s.snakeScore(s);
                     lock (ourWorld.snakeDict)
                     {
                         ourWorld.snakeDict[s.getID()] = s;
@@ -174,6 +176,7 @@ namespace View
                         {
                             ourWorld.snakeDict.Remove(s.getID());
                         }
+                        
                     }
                 }
 
@@ -194,9 +197,10 @@ namespace View
             }
             try
             {
-                this.Invoke(new MethodInvoker(() => drawingPanel1.Invalidate()));
+                this.Invoke(new MethodInvoker(() => drawingPanel1.Invalidate()));                
+                
             }
-            catch(ObjectDisposedException e)
+            catch(Exception e)
             {
                 //form should end now
             }

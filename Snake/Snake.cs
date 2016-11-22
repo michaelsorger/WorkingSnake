@@ -84,6 +84,7 @@ namespace SnakeGame
     [JsonObject(MemberSerialization.OptIn)]
     public class Snake
     {
+        //dictionary to map ID to color
         Dictionary<int, Color> snakeColorDict = new Dictionary<int, Color>();
 
         [JsonProperty]
@@ -106,7 +107,10 @@ namespace SnakeGame
         {
             return ID;
         }
-
+        public string getName()
+        {
+            return name;
+        }
         public Snake(string id)
         {
             Int32.TryParse(id, out ID);
@@ -163,6 +167,20 @@ namespace SnakeGame
                 return true;
             else
                 return false;
+        }
+
+        public int snakeScore(Snake someSnake)
+        {
+            int score = 0;
+            for (int i = 0; i < vertices.Count - 1; i++)
+            {
+                score += distanceFormula(vertices[i].getX(), vertices[i + 1].getX(), vertices[i].getY(), vertices[i + 1].getY());
+            }
+            return score;
+        }
+        private int distanceFormula(int x1, int x2, int y1, int y2)
+        {
+            return (int)Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
         }
     }
 }

@@ -163,12 +163,7 @@ namespace NetworkController
         {
             stateToPass = (SocketState)state_in_an_ar_object.AsyncState;
 
-
-
-            ///ERROR THROWS HERE. WHY??????
-            ///
-
-//change
+            //error might throw?
 
             int bytesRead = stateToPass.theSocket.EndReceive(state_in_an_ar_object);
             if (bytesRead > 0)

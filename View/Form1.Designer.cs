@@ -30,20 +30,13 @@ namespace View
         /// </summary>
         private void InitializeComponent()
         {
-            this.drawingPanel1 = new SnakeGame.DrawingPanel();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.serverAddress = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nameBox = new System.Windows.Forms.TextBox();
             this.EnterName = new System.Windows.Forms.Button();
+            this.drawingPanel1 = new SnakeGame.DrawingPanel();
             this.SuspendLayout();
-            // 
-            // drawingPanel1
-            // 
-            this.drawingPanel1.Location = new System.Drawing.Point(2, 55);
-            this.drawingPanel1.Name = "drawingPanel1";
-            this.drawingPanel1.Size = new System.Drawing.Size(472, 505);
-            this.drawingPanel1.TabIndex = 0;
             // 
             // ConnectButton
             // 
@@ -82,6 +75,7 @@ namespace View
             // 
             // EnterName
             // 
+            this.EnterName.AutoSize = true;
             this.EnterName.Enabled = false;
             this.EnterName.Location = new System.Drawing.Point(422, 13);
             this.EnterName.Name = "EnterName";
@@ -90,6 +84,13 @@ namespace View
             this.EnterName.Text = "Enter Name";
             this.EnterName.UseVisualStyleBackColor = true;
             this.EnterName.Click += new System.EventHandler(this.EnterName_Click);
+            // 
+            // drawingPanel1
+            // 
+            this.drawingPanel1.Location = new System.Drawing.Point(2, 55);
+            this.drawingPanel1.Name = "drawingPanel1";
+            this.drawingPanel1.Size = new System.Drawing.Size(472, 505);
+            this.drawingPanel1.TabIndex = 0;
             // 
             // Form1
             // 

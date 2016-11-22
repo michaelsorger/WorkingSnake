@@ -65,7 +65,8 @@ namespace SnakeGame
                 e.Graphics.FillRectangle(drawBrush, bottomWall);
             }
 
-            // Draw the "world" (just food) within this panel by using the PaintEventArgs
+            // Draw the "world" within this panel by using the PaintEventArgs
+
             world.Draw(e);
 
         }
