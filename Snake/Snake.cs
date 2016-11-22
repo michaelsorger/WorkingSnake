@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -96,16 +95,17 @@ namespace SnakeGame
         string name;
 
         [JsonProperty]
-        int headX;
-
-        [JsonProperty]
-        int tailY;
+        private int tailY;
 
         [JsonProperty]
         List<Point> vertices;
 
         Color snakeColor;
 
+        public Point getHeadLocation()
+        {
+            return vertices[vertices.Count - 1];
+        }
         public int getID()
         {
             return ID;

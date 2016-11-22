@@ -1,5 +1,6 @@
 ﻿using SnakeGame;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace SnakeGame
@@ -30,6 +31,12 @@ namespace SnakeGame
         {
             world = _world;
         }
+
+
+        //private void Zoom(Snake mySnake)
+        //{
+        //    int n = mySnake.snakeScore();
+        //    transform.Translate((mySnake.getHeadLocation().getX() - n) * pixelsPerCell, (mySnake.getHeadLocation().getX() - n) * pixelsPerCell)
 
         /// <summary>
         /// Override the behavior when the panel is redrawn
@@ -67,9 +74,15 @@ namespace SnakeGame
 
             // Draw the "world" within this panel by using the PaintEventArgs
 
+            //call zoom
+            //Zoom();
+            //scale
+            //e.Graphics.ScaleTransform(drawingPane.width/(2(snake.snakeScore())), drawingPanel.height/(2(snake.snakeScore())));
             world.Draw(e);
 
         }
+
+
     }
 }
 
