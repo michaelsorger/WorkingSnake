@@ -48,6 +48,8 @@ namespace View
         private NetworkController.SocketState stateToDealWithMyIssues = new NetworkController.SocketState();
         private Dictionary<string, int> namesAndScores = new Dictionary<string, int>();
         private HashSet<string> namesAlreadyWritten = new HashSet<string>();
+        private int labelNumber = 0;
+        private Dictionary<string, Label> labelDict = new Dictionary<string, Label>();
 
         private void FirstContact(NetworkController.SocketState state)
         {
@@ -158,6 +160,7 @@ namespace View
                     break;
 
                 //deserialize
+                //some random ip 128.110.21.208
                 //check to see if parts is a snake or food Json string
                 // Parser the JSON string so we can examine it to determine what type of object it represents.
                 JObject obj = JObject.Parse(p);
@@ -169,15 +172,35 @@ namespace View
                 {
                     Snake s = JsonConvert.DeserializeObject<Snake>(p);
                     namesAndScores[s.getName()] = s.snakeScore(s);
+                    if (!ourWorld.snakeDict.ContainsKey(s.getID()))
+                    {
+                        Label label = new Label();
+                        label.Name = "label" + labelNumber;
+                        label.Location = new System.Drawing.Point(ourWorld.width * ourWorld.pixelsPerCell + 20, 100 + labelNumber * 22);
+                        label.Size = new System.Drawing.Size(180, 20);
+                        this.Invoke(new MethodInvoker(() => label.Parent = this));
+
+                        //color 
+                        label.Text = s.getName() + ": " + s.snakeScore(s);
+                        s.myLabelNumber = labelNumber;
+                        labelNumber++;
+                        labelDict[label.Name] = label;
+                        this.Invoke(new MethodInvoker(() => this.Controls.Add(label)));
+                    }
+                    else
+                    {
+                        labelDict["label" + s.myLabelNumber].Text = s.getName() + ": " + s.snakeScore(s);
+                    }
+
                     lock (ourWorld.snakeDict)
                     {
                         ourWorld.snakeDict[s.getID()] = s;
                         if (s.SnakeIsDead(s))
                         {
                             ourWorld.snakeDict.Remove(s.getID());
-                        }
-                        
+                        }                       
                     }
+
                 }
 
                 if (foodProp != null)

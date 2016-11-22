@@ -87,6 +87,8 @@ namespace SnakeGame
         //dictionary to map ID to color
         Dictionary<int, Color> snakeColorDict = new Dictionary<int, Color>();
 
+        public int myLabelNumber;
+
         [JsonProperty]
         private int ID;
 
@@ -103,6 +105,7 @@ namespace SnakeGame
         List<Point> vertices;
 
         Color snakeColor;
+
         public int getID()
         {
             return ID;
